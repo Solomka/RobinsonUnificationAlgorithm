@@ -15,10 +15,9 @@ public class LexicalAnalyzer {
 	private static final List<String> CONSTANT = Arrays.asList("a", "b", "c");
 	private static final List<String> FUNCTION = Arrays.asList("f", "h");
 
-	private Token token;
+	private Token token = null;
 
-	public LexicalAnalyzer(String lexem) {
-		token = analyzeLexem(lexem);
+	public LexicalAnalyzer() {
 		System.out.println("LexicalAnalyzer: " + token);
 	}
 
@@ -35,7 +34,7 @@ public class LexicalAnalyzer {
 		this.token = token;
 	}
 
-	private Token analyzeLexem(String lexem) {
+	public Token analyzeLexem(String lexem) {
 
 		String[] parsedLexem = scanString(lexem);
 		

@@ -1,81 +1,58 @@
 public class Variable implements Token {
 
-    /** The name of the variable. */
-    private String name;
+	private String name;
 
-    // ------------------------------------------ Constructors
+	public Variable() {
+		name = null;
+	}
 
-    public Variable() {
-        name = null;
-    }
+	public Variable(String name) {
+		this.name = name;
+	}
 
-    public Variable(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException(
-                    "The given variable name must not be null.");
-        }
+	public String getName() {
+		return name;
+	}	
 
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    // ------------------------------------------ Public methods
+	public boolean occurs(Token token) {
+		return false;
+	}
 
-    /**
-     * <p>Returns the name of this variable.</p>
-     * 
-     * @return the name of this variable
-     */
-    public String getName() {
-        return name;
-    }
+	public Token substitute(Token token, Token replacement) {
+		if (getName() != null && equals(token)) {
+			return replacement;
+		}
 
-    // ------------------------------------------ Term methods
+		return this;
+	}
 
-    public boolean occurs(Token term) {
-        // In a variable, it cannot be the case that another term occurs.
-        return false;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null || getClass() != obj.getClass())
+			return false;
 
-    public Token substitute(Token term, Token replacement) {
-        // If the user wants to substitute this variable, return the replacement.
-        if (getName() != null && equals(term)) {
-            return replacement;
-        }
+		Variable variable = (Variable) obj;
+		if (name == null && variable.getName() == null) {
+			return true;
+		}
 
-        return this;
-    }
+		return name.equals(variable.getName());
+	}
 
-    // ------------------------------------------ Object methods
+	@Override
+	public int hashCode() {
+		return name != null ? name.hashCode() : 0;
+	}
 
-    /**
-     * <p>Determines whether the given object is an equal variable. Note that
-     * the only condition that it has to fulfill is to have an equal name.</p>
-     *
-     * @param obj the object you want to check
-     *
-     * @return
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+	@Override
+	public String toString() {
+		return getName() != null ? getName() : "_";
+	}
 
-        Variable variable = (Variable) obj;
-        if (name == null && variable.getName() == null) {
-            return true;
-        }
-
-        return name.equals(variable.getName());
-    }
-
-    @Override
-    public int hashCode() {
-        return name != null ? name.hashCode() : 0;
-    }
-
-    @Override
-    public String toString() {
-        return getName() != null ? getName() : "_";
-    }
-    
 }
