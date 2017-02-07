@@ -3,29 +3,29 @@
  */
 public class TokensPair {
 
-	private Token lhs;
-	private Token rhs;
+	private Token token1;
+	private Token token2;
 
 	public TokensPair(){
 		
 	}
 	
-	public TokensPair(Token lhs, Token rhs) {
-		this.lhs = lhs;
-		this.rhs = rhs;
+	public TokensPair(Token token1, Token token2) {
+		this.token1 = token1;
+		this.token2 = token2;
 	}
 
-	public Token getLhs() {
-		return lhs;
+	public Token getToken1() {
+		return token1;
 	}
 
-	public Token getRhs() {
-		return rhs;
+	public Token getToken2() {
+		return token2;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("TokensPair[lhs='%s', rhs='%s']", lhs, rhs);
+		return String.format("TokensPair(token1='%s', token2='%s')", token1, token2);
 	}
 
 }

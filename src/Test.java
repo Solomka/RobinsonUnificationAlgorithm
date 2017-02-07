@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Test {
 
 	private static Scanner scanner = new Scanner(System.in);
-
+	/*
 	private static TokensPair generateTokensPair(){
 		//example 
 		
@@ -44,9 +44,9 @@ public class Test {
 				
 				return uP;
 	}
-	
+	*/
 	public static void main(String[] args) {
-
+/*
 		TokensPair tP = generateTokensPair();
 		System.out.println(tP.toString());
 		
@@ -60,9 +60,9 @@ public class Test {
 			for (TokensPair u : uPR) {
 				System.out.println(u.toString());
 			}
-		}
+		}*/
 		
-		/*
+		
 		int ifTryAgain = 0;
 
 		
@@ -119,7 +119,7 @@ public class Test {
 				break;
 			}
 
-		}*/
+		}
 
 	}
 }
