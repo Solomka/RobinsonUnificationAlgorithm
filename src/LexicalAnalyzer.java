@@ -43,14 +43,14 @@ public class LexicalAnalyzer {
 		}
 
 		// if one of the symbols is "" return NULL
-
+/*
 		for (String str : parsedLexem) {
 			if (str == null || str.isEmpty()) {
 				System.out.println("NULL");
 				return null;
 			}
 		}
-
+*/
 		// if CONSTANT or VARIABLE
 		if (parsedLexem.length == 1) {
 			
@@ -84,14 +84,14 @@ public class LexicalAnalyzer {
 				// main logic Here...
 				for (String symbol : parsedLexem) {					
 					
-					if (defineTokenPattern(symbol) != TokenPattern.VARIABLE
+					if ((!symbol.isEmpty()) && (defineTokenPattern(symbol) != TokenPattern.VARIABLE
 							&& defineTokenPattern(symbol) != TokenPattern.CONSTANT
-							&& defineTokenPattern(symbol) != TokenPattern.FUNCTION) {
-						System.out.println("LOL");
+							&& defineTokenPattern(symbol) != TokenPattern.FUNCTION) ){
+						System.out.println("LOL- "+ symbol);
 						return null;
 					}
 				}
-				token = constractPredicate(parsedLexem);
+				token = fromStringToPredicate(lexem);
 				
 			}
 			
@@ -136,32 +136,7 @@ public class LexicalAnalyzer {
 		}
 		return stack.empty();
 	}
-/*	
-	private Predicate constractComplexPredicate(String lexem){
-		
-		String[] parsedLexem = scanString(lexem);
-		
-		List<Token> args = new ArrayList<Token>();
-		
-		Predicate predicate = new Predicate();
-		predicate.setName(parsedLexem[0]);
-		
-		for(int i = 1; i< parsedLexem.length; ++i){
-			if(defineTokenPattern(parsedLexem[i]) == TokenPattern.VARIABLE){
-				args.add(new Variable(parsedLexem[i]));
-			}
-			else if(defineTokenPattern(parsedLexem[i]) == TokenPattern.CONSTANT){
-				args.add(new Constant(parsedLexem[i]));
-			}
-			else if(defineTokenPattern(parsedLexem[i]) == TokenPattern.FUNCTION)
-						
-		}
-		
-		predicate.setArgs(args);		
-	
-		return predicate;
-	}
-	*/
+
 	private Predicate constractPredicate(String [] parsedLexem){
 		System.out.println("Construct simple predicate");
 		List<Token> args = new ArrayList<Token>();
@@ -181,6 +156,54 @@ public class LexicalAnalyzer {
 		
 		predicate.setArgs(args);		
 	
+		return predicate;
+	}
+	
+	//convert from string to predicate
+	private Token fromStringToPredicate(String str){
+		
+		Predicate predicate = null;
+		
+		if (!str.contains("(")) {
+			
+			if(defineTokenPattern(str) == TokenPattern.VARIABLE){
+				return new Variable(str);
+			}
+			else if(defineTokenPattern(str) == TokenPattern.CONSTANT){
+				return new Constant(str);
+			}
+			
+		} else {
+			String name = str.substring(0, str.indexOf("("));
+			String functionBody = str.substring(str.indexOf("(") + 1,
+					str.lastIndexOf(")"));
+
+			int paranthesesCounter = 0;
+			String arg = "";
+			List<Token> args = new ArrayList<Token>();
+
+			for (int i = 0; i < functionBody.length(); ++i) {
+				char curr = functionBody.charAt(i);
+				if (curr == ',') {
+					if (paranthesesCounter == 0) {
+						args.add(fromStringToPredicate(arg));
+						arg = "";
+						continue;
+					}
+				} else if (curr == ')') {
+					paranthesesCounter--;
+
+				} else if (curr == '(') {
+					paranthesesCounter++;
+				}
+				arg += curr;
+
+			}
+			// add last term to the args list
+			args.add(fromStringToPredicate(arg));
+
+			predicate =  new Predicate(name, args);
+		}	
 		return predicate;
 	}
 

@@ -8,18 +8,17 @@ import java.util.List;
  */
 public class Unificator {
 
+	
 	public List<TokensPair> unify(TokensPair termsToUnify) {
-		return unify(Arrays.asList(termsToUnify));
-	}
-
-	public List<TokensPair> unify(List<TokensPair> termsToUnify) {
 		/**
 		 * workingSet - list of all TokensPairs to unify
 		 * 
 		 * Ex: TokenPair ( f(x, h(a,b)), f(b,z) )
 		 *  	List<TokenPair> workingSet = { TP( f(x, h(a,b)), f(b,z) ), TP( x, b ), TP( h(a,b), z )}
 		 */
-		List<TokensPair> workingSet = new ArrayList<TokensPair>(termsToUnify);
+		List<TokensPair> workingSet = new ArrayList<TokensPair>();
+		workingSet.add(termsToUnify);
+		
 		/**
 		 * unifier - list of replacement TokensPairs
 		 * 
