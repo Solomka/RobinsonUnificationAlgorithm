@@ -18,7 +18,7 @@ public class LexicalAnalyzer {
 	private Token token = null;
 
 	public LexicalAnalyzer() {
-		System.out.println("LexicalAnalyzer: " + token);
+		//System.out.println("LexicalAnalyzer: " + token);
 	}
 
 	private String[] scanString(String lexem) {
@@ -37,11 +37,11 @@ public class LexicalAnalyzer {
 	public Token analyzeLexem(String lexem) {
 
 		String[] parsedLexem = scanString(lexem);
-		
+		/*
 		for(String s: parsedLexem){		
 		System.out.println("s: "+ s);
 		}
-
+*/
 		// if one of the symbols is "" return NULL
 /*
 		for (String str : parsedLexem) {
@@ -54,7 +54,7 @@ public class LexicalAnalyzer {
 		// if CONSTANT or VARIABLE
 		if (parsedLexem.length == 1) {
 			
-			System.out.println("parsedLexem.length == 1");
+			//System.out.println("parsedLexem.length == 1");
 
 			if (defineTokenPattern(parsedLexem[0]) == TokenPattern.VARIABLE) {
 				token = new Variable(parsedLexem[0]);
@@ -68,7 +68,7 @@ public class LexicalAnalyzer {
 
 		// FUNCTION or NULL
 		else {
-			System.out.println("parsedLexem.length NOT 1");
+			//System.out.println("parsedLexem.length NOT 1");
 			// if first symbol not a "f, h" return null
 			if (defineTokenPattern(parsedLexem[0]) != TokenPattern.FUNCTION) {
 				System.out.println("defineTokenPattern(parsedLexem[0]) != TokenPattern.FUNCTION");
@@ -77,10 +77,10 @@ public class LexicalAnalyzer {
 
 			// if paranthes not match return null
 			else if (!isParenthesisMatch(lexem)) {
-				System.out.println("!isParenthesisMatch(lexem)");
+				//System.out.println("!isParenthesisMatch(lexem)");
 				return null;
 			} else {
-				System.out.println("everything is good");
+				//System.out.println("everything is good");
 				// main logic Here...
 				for (String symbol : parsedLexem) {					
 					
@@ -136,7 +136,7 @@ public class LexicalAnalyzer {
 		}
 		return stack.empty();
 	}
-
+/*
 	private Predicate constractPredicate(String [] parsedLexem){
 		System.out.println("Construct simple predicate");
 		List<Token> args = new ArrayList<Token>();
@@ -158,6 +158,7 @@ public class LexicalAnalyzer {
 	
 		return predicate;
 	}
+	*/
 	
 	//convert from string to predicate
 	private Token fromStringToPredicate(String str){

@@ -5,68 +5,20 @@ import java.util.Scanner;
 public class Test {
 
 	private static Scanner scanner = new Scanner(System.in);
-/*	
-	private static TokensPair generateTokensPair(){
-		//example 
-		
-				//first predicate				
-				List<Token> predicate1Terms = new ArrayList<Token>();	
-				
-				Token con1 = new Constant("b");			
-				Token con2 = new Variable("z");	
-				
-				predicate1Terms.add(con1);
-				predicate1Terms.add(con2);
-				
-				Predicate predicate1 = new Predicate("f", predicate1Terms);
-				
-				//second predicate
-				List<Token> predicate2Terms = new ArrayList<Token>();	
-				
-				Token var1 = new Variable("x");
-				
-				List<Token> predicate23Terms = new ArrayList<Token>();
-				
-				Token tt = new Constant("a");
-				Token tt1 = new Constant("b");
-				
-				predicate23Terms.add(tt);
-				predicate23Terms.add(tt1);
-						
-				Token var2 = new Predicate("h",predicate23Terms );
-				
-				predicate2Terms.add(var1);
-				predicate2Terms.add(var2);
-				
-				Predicate predicate2 = new Predicate("f", predicate2Terms);
-				
-				TokensPair uP = new TokensPair(predicate1, predicate2);
-				
-				return uP;
-	}
-	*/
+
+	/**
+	 * Test data:
+	 * 
+	 * f(f(f(a,b)),h(a,h(c)))
+	 * f(y,z)
+	 * 
+	 * f(h(h(h(a,b)),c),z)
+     * f(x,h(a,x))
+	 * 
+	 */
 	public static void main(String[] args) {
-/*
-		TokensPair tP = generateTokensPair();
-		System.out.println(tP.toString());
-		
-		Unificator s = new Unificator();
-		List<TokensPair> uPR = s.unify(tP);
 
-		// check if unification can be processed
-		if (uPR == null) {
-			System.out.println("Tokens can't be unified");
-		} else {
-			for (TokensPair u : uPR) {
-				System.out.println(u.toString());
-			}
-		}
-	*/	
-		//f(x,y,h(a,b,z), h(z,a))
-		//f(a,b,z,x)
-		
 		int ifTryAgain = 0;
-
 		
 		while (true) {
 
