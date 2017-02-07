@@ -8,14 +8,14 @@ import java.util.logging.Logger;
 /**
  *
  */
-public class RobinsonUnificationStrategy implements UnificationStrategy {
+public class RobinsonUnificationStrategy{
 
 	/** The logger instance for this class. */
 	private final Logger logger = Logger.getLogger(getClass().getName());
 
 	// ------------------------------------------ UnificationStrategy methods
 
-	public List<UnificationPair> unify(UnificationPair... termsToUnify) {
+	public List<UnificationPair> unify(UnificationPair termsToUnify) {
 		return unify(Arrays.asList(termsToUnify));
 	}
 

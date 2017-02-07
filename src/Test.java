@@ -8,6 +8,10 @@ public class Test {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+		int t = 0;
+		
+		do{
+		
 		System.out.println("Robinson's unification algorithm");
 		System.out.println("\n");
 
@@ -44,7 +48,13 @@ public class Test {
 		}
 		else{
 			System.out.println("Incorrect lexems. Try again.");
+			
 		}
+		System.out.println("vvedit 1 dlya prodovjennya.");
+		t = scanner.nextInt();
+		
+		}
+		while (t == 1);	
 
 	}
 }
