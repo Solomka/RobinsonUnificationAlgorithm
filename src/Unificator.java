@@ -2,16 +2,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  */
 public class Unificator {
-
-	/** The logger instance for this class. */
-	private final Logger logger = Logger.getLogger(getClass().getName());
 
 	public List<TokensPair> unify(TokensPair termsToUnify) {
 		return unify(Arrays.asList(termsToUnify));
@@ -38,11 +33,6 @@ public class Unificator {
 
 	private boolean unify(Token lhs, Token rhs, List<TokensPair> workingSet,
 			List<TokensPair> unifier) {
-		if (logger.isLoggable(Level.FINE)) {
-			logger.log(Level.FINE,
-					"    Attempting to unify the terms ''{0}'' and ''{1}''.",
-					new Object[] { lhs, rhs });
-		}
 
 		if (lhs instanceof Constant) {
 			return unify((Constant) lhs, rhs, workingSet, unifier);
@@ -50,13 +40,6 @@ public class Unificator {
 			return unify((Variable) lhs, rhs, workingSet, unifier);
 		} else if (lhs instanceof Predicate) {
 			return unify((Predicate) lhs, rhs, workingSet, unifier);
-		}
-
-		if (logger.isLoggable(Level.SEVERE)) {
-			logger.log(
-					Level.SEVERE,
-					"    Cannot unify the terms as the kind of term ''{0}'' is unknown.",
-					lhs);
 		}
 
 		return false;
@@ -84,13 +67,6 @@ public class Unificator {
 		}
 
 		if (term.occurs(variable)) {
-			if (logger.isLoggable(Level.FINE)) {
-				logger.log(
-						Level.FINE,
-						"    Cannot unify the variable ''{0}'' and the term "
-								+ "''{1}'' as the variable occurs in the term.",
-						new Object[] { variable, term });
-			}
 
 			return false;
 		}
