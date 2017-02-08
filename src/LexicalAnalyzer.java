@@ -11,21 +11,25 @@ public class LexicalAnalyzer {
 		VARIABLE, CONSTANT, FUNCTION
 	};
 
-	private static final List<String> VARIABLE = Arrays.asList("x", "y", "z");
+	private static final List<String> VARIABLE = Arrays
+			.asList("x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7", "x8", "x9",
+					"x10", "x11", "x12", "x13", "x14", "x15", "x16", "x17",
+					"x18", "x19", "x20", "y0", "y1", "y2", "y3", "y4", "y5",
+					"y6", "y7", "y8", "y9", "y10", "y11", "y12", "y13", "y14",
+					"y15", "y16", "y17", "y18", "y19", "y20");
 	private static final List<String> CONSTANT = Arrays.asList("a", "b", "c");
 	private static final List<String> FUNCTION = Arrays.asList("f", "h");
 
 	private Token token = null;
 
 	public LexicalAnalyzer() {
-		//System.out.println("LexicalAnalyzer: " + token);
+		// System.out.println("LexicalAnalyzer: " + token);
 	}
 
 	private String[] scanString(String lexem) {
 		return lexem.split("[,()]");
 	}
-	
-	
+
 	public Token getToken() {
 		return token;
 	}
@@ -38,23 +42,17 @@ public class LexicalAnalyzer {
 
 		String[] parsedLexem = scanString(lexem);
 		/*
-		for(String s: parsedLexem){		
-		System.out.println("s: "+ s);
-		}
-*/
+		 * for(String s: parsedLexem){ System.out.println("s: "+ s); }
+		 */
 		// if one of the symbols is "" return NULL
-/*
-		for (String str : parsedLexem) {
-			if (str == null || str.isEmpty()) {
-				System.out.println("NULL");
-				return null;
-			}
-		}
-*/
+		/*
+		 * for (String str : parsedLexem) { if (str == null || str.isEmpty()) {
+		 * System.out.println("NULL"); return null; } }
+		 */
 		// if CONSTANT or VARIABLE
 		if (parsedLexem.length == 1) {
-			
-			//System.out.println("parsedLexem.length == 1");
+
+			// System.out.println("parsedLexem.length == 1");
 
 			if (defineTokenPattern(parsedLexem[0]) == TokenPattern.VARIABLE) {
 				token = new Variable(parsedLexem[0]);
@@ -68,35 +66,36 @@ public class LexicalAnalyzer {
 
 		// FUNCTION or NULL
 		else {
-			//System.out.println("parsedLexem.length NOT 1");
+			// System.out.println("parsedLexem.length NOT 1");
 			// if first symbol not a "f, h" return null
 			if (defineTokenPattern(parsedLexem[0]) != TokenPattern.FUNCTION) {
-				System.out.println("defineTokenPattern(parsedLexem[0]) != TokenPattern.FUNCTION");
+				System.out
+						.println("defineTokenPattern(parsedLexem[0]) != TokenPattern.FUNCTION");
 				return null;
 			}
 
 			// if paranthes not match return null
 			else if (!isParenthesisMatch(lexem)) {
-				//System.out.println("!isParenthesisMatch(lexem)");
+				// System.out.println("!isParenthesisMatch(lexem)");
 				return null;
 			} else {
-				//System.out.println("everything is good");
+				// System.out.println("everything is good");
 				// main logic Here...
-				for (String symbol : parsedLexem) {					
-					
-					if ((!symbol.isEmpty()) && (defineTokenPattern(symbol) != TokenPattern.VARIABLE
-							&& defineTokenPattern(symbol) != TokenPattern.CONSTANT
-							&& defineTokenPattern(symbol) != TokenPattern.FUNCTION) ){
-						System.out.println("LOL- "+ symbol);
+				for (String symbol : parsedLexem) {
+
+					if ((!symbol.isEmpty())
+							&& (defineTokenPattern(symbol) != TokenPattern.VARIABLE
+									&& defineTokenPattern(symbol) != TokenPattern.CONSTANT && defineTokenPattern(symbol) != TokenPattern.FUNCTION)) {
+						System.out.println("LOL- " + symbol);
 						return null;
 					}
 				}
 				token = fromStringToPredicate(lexem);
-				
+
 			}
-			
-		}		
-		
+
+		}
+
 		return token;
 	}
 
@@ -136,44 +135,40 @@ public class LexicalAnalyzer {
 		}
 		return stack.empty();
 	}
-/*
-	private Predicate constractPredicate(String [] parsedLexem){
-		System.out.println("Construct simple predicate");
-		List<Token> args = new ArrayList<Token>();
-		
-		Predicate predicate = new Predicate();
-		predicate.setName(parsedLexem[0]);
-		
-		for(int i = 1; i< parsedLexem.length; ++i){
-			if(defineTokenPattern(parsedLexem[i]) == TokenPattern.VARIABLE){
-				args.add(new Variable(parsedLexem[i]));
-			}
-			else if(defineTokenPattern(parsedLexem[i]) == TokenPattern.CONSTANT){
-				args.add(new Constant(parsedLexem[i]));
-			}
-						
-		}
-		
-		predicate.setArgs(args);		
-	
-		return predicate;
-	}
-	*/
-	
-	//convert from string to predicate
-	private Token fromStringToPredicate(String str){
-		
+
+	/*
+	 * private Predicate constractPredicate(String [] parsedLexem){
+	 * System.out.println("Construct simple predicate"); List<Token> args = new
+	 * ArrayList<Token>();
+	 * 
+	 * Predicate predicate = new Predicate(); predicate.setName(parsedLexem[0]);
+	 * 
+	 * for(int i = 1; i< parsedLexem.length; ++i){
+	 * if(defineTokenPattern(parsedLexem[i]) == TokenPattern.VARIABLE){
+	 * args.add(new Variable(parsedLexem[i])); } else
+	 * if(defineTokenPattern(parsedLexem[i]) == TokenPattern.CONSTANT){
+	 * args.add(new Constant(parsedLexem[i])); }
+	 * 
+	 * }
+	 * 
+	 * predicate.setArgs(args);
+	 * 
+	 * return predicate; }
+	 */
+
+	// convert from string to predicate
+	private Token fromStringToPredicate(String str) {
+
 		Predicate predicate = null;
-		
+
 		if (!str.contains("(")) {
-			
-			if(defineTokenPattern(str) == TokenPattern.VARIABLE){
+
+			if (defineTokenPattern(str) == TokenPattern.VARIABLE) {
 				return new Variable(str);
-			}
-			else if(defineTokenPattern(str) == TokenPattern.CONSTANT){
+			} else if (defineTokenPattern(str) == TokenPattern.CONSTANT) {
 				return new Constant(str);
 			}
-			
+
 		} else {
 			String name = str.substring(0, str.indexOf("("));
 			String functionBody = str.substring(str.indexOf("(") + 1,
@@ -203,8 +198,8 @@ public class LexicalAnalyzer {
 			// add last term to the args list
 			args.add(fromStringToPredicate(arg));
 
-			predicate =  new Predicate(name, args);
-		}	
+			predicate = new Predicate(name, args);
+		}
 		return predicate;
 	}
 
